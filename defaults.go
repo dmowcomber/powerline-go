@@ -119,8 +119,8 @@ var themes = map[string]Theme{
 
 		KubeClusterFg:   117,
 		KubeClusterBg:   26,
-		KubeNamespaceFg: 170,
-		KubeNamespaceBg: 17,
+		KubeNamespaceFg: 0,
+		KubeNamespaceBg: 250,
 
 		DotEnvFg: 15, // white
 		DotEnvBg: 55, // purple
@@ -129,9 +129,9 @@ var themes = map[string]Theme{
 		AWSBg: 172, // AWS orange
 
 		RepoCleanFg: 0,   // black
-		RepoCleanBg: 148, // a light green color
-		RepoDirtyFg: 15,  // white
-		RepoDirtyBg: 161, // pink/red
+		RepoCleanBg: 70,  // green
+		RepoDirtyFg: 0,   // black
+		RepoDirtyBg: 220, // yellow/orange
 
 		JobsFg: 39,
 		JobsBg: 238,
