@@ -240,7 +240,7 @@ Usage of powerline-go:
     	 (default "root,cwd,user,host,ssh,perms,git-branch,git-status,hg,jobs,exit,cwd-path")
   -shell string
     	 Set this to your shell type
-    	 (valid choices: bare, bash, zsh)
+    	 (valid choices: bare, bash, zsh, tmux)
     	 (default "bash")
   -shell-var string
     	 A shell variable to add to the segments.
@@ -303,6 +303,25 @@ fi
 ##### Fish
 
 Eval mode (and `modules-right` support) for Fish is not currently available.
+
+##### Tmux
+
+Add to your ~/.tmux.conf
+```
+set -g status on
+set -g status-bg default
+
+# cd to #{pane_current_path} so powerline-go is pwd aware
+set -g status-left '#(cd #{pane_current_path}; $GOPATH/bin/powerline-go -error $? -shell tmux -modules "root,kube,root,git,root,cwd")'
+set -g status-right '#(cd #{pane_current_path}; $GOPATH/bin/powerline-go -error $? -shell tmux -modules "user,root,host,load")'
+
+set -g status-left-length 200
+set -g status-right-length 150
+
+# remove tmux stuff
+set -g window-status-format ""
+set -g window-status-current-format ""
+```
 
 ### Path Aliases
 

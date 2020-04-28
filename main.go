@@ -193,7 +193,7 @@ func main() {
 			"shell",
 			"bash",
 			commentsWithDefaults("Set this to your shell type",
-				"(valid choices: bare, bash, zsh)")),
+				"(valid choices: bare, bash, zsh, tmux)")),
 		Modules: flag.String(
 			"modules",
 			"venv,user,host,ssh,cwd,perms,git,hg,jobs,exit,root",

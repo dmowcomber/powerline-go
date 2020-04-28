@@ -17,6 +17,7 @@ import (
 
 // ShellInfo holds the shell information
 type ShellInfo struct {
+	name                  string
 	rootIndicator         string
 	colorTemplate         string
 	escapedDollar         string
@@ -72,7 +73,11 @@ func newPowerline(args args, cwd string, priorities map[string]int, align alignm
 
 	p.theme = themes[*args.Theme]
 	p.shellInfo = shellInfos[*args.Shell]
-	p.reset = fmt.Sprintf(p.shellInfo.colorTemplate, "[0m")
+	if p.shellInfo.name == "tmux" {
+		p.reset = fmt.Sprintf("%s%s", p.fgColor(p.theme.DefaultFg), p.bgColor(p.theme.DefaultBg))
+	} else {
+		p.reset = fmt.Sprintf(p.shellInfo.colorTemplate, "[0m")
+	}
 	p.symbolTemplates = symbolTemplates[*args.Mode]
 	p.priorities = priorities
 	p.align = align
@@ -152,6 +157,14 @@ func initSegments(p *powerline, mods []string) {
 func (p *powerline) color(prefix string, code uint8) string {
 	if code == p.theme.Reset {
 		return p.reset
+	}
+	// TODO: there's probably a better way
+	if p.shellInfo.name == "tmux" {
+		if prefix == "38" { // forground
+			return fmt.Sprintf(p.shellInfo.colorTemplate, fmt.Sprintf("#[fg=colour%d]", code))
+		}
+		// else 48 (background)
+		return fmt.Sprintf(p.shellInfo.colorTemplate, fmt.Sprintf("#[bg=colour%d]", code))
 	}
 	return fmt.Sprintf(p.shellInfo.colorTemplate, fmt.Sprintf("[%s;5;%dm", prefix, code))
 }

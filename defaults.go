@@ -78,6 +78,10 @@ var shellInfos = map[string]ShellInfo{
 		escapedBacktick:  "`",
 		escapedDollar:    `$`,
 	},
+	"tmux": {
+		name:          "tmux",
+		colorTemplate: "%s",
+	},
 }
 
 var themes = map[string]Theme{
